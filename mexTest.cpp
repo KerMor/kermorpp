@@ -18,14 +18,10 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
 	mstream mout;
 	std::streambuf *outbuf = std::cout.rdbuf(&mout);
 
-	Matrix x;
-	x.n = mxGetM(prhs[0]);
-	x.m = mxGetN(prhs[0]);
+	Matrix x = Matrix(mxGetM(prhs[0]),mxGetN(prhs[0]));
 	x.values = mxGetPr(prhs[0]);
 
-	Matrix y;
-	y.n = mxGetM(prhs[1]);
-	y.m = mxGetN(prhs[1]);
+	Matrix y = Matrix(mxGetM(prhs[1]), mxGetN(prhs[1]));
 	y.values = mxGetPr(prhs[1]);
 
 	double gamma = mxGetScalar(prhs[2]);

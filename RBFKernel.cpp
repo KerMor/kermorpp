@@ -25,11 +25,11 @@ RBFKernel::~RBFKernel() {
 void RBFKernel::sumsq(Matrix x, double* res) {
 	int i, j;
 
-#pragma omp parallel for shared(res,x) private(i,j)
+#pragma omp parallel for shared(res, x) private(i,j)
 	for (j = 0; j < x.m; j++) {
 		res[j] = 0;
 		for (i = 0; i < x.n; i++) {
-			res[j] += x.values[j * x.n + i] * x.values[j * x.n + i];
+			res[j] += x.values[i * x.m + j] * x.values[i * x.m + j];
 		}
 	}
 }
@@ -47,9 +47,9 @@ void RBFKernel::sumsq(Matrix x, double* res) {
  */
 Matrix RBFKernel::evaluate(Matrix x, Matrix y) {
 
-#ifdef DEBUG
+//#ifdef DEBUG
 	char temp[1000];
-#endif
+//#endif
 
 	double hlp;
 	int i, j, l;
@@ -60,24 +60,25 @@ Matrix RBFKernel::evaluate(Matrix x, Matrix y) {
 	sumsq(x, xsq);
 	sumsq(y, ysq);
 
-	Matrix res;
-	res.n = x.m;
-	res.m = y.m;
+	Matrix res = Matrix(x.m, y.m);
 
 #pragma omp parallel for shared(res,xsq,ysq,x,y) private(hlp,i,j,l)
 	// Running column indices i for x, j for y
-	for (i = 0; i < x.m; i++) {
-		for (j = 0; j < y.m; j++) {
+	for (i = 0; i < res.n; i++) {
+		for (j = 0; j < res.m; j++) {
 			hlp = 0;
 			for (l = 0; l < x.n; l++) {
-				hlp += x.values[i * x.n + l] * y.values[j * x.n + l];
+				hlp += x.values[l * x.m + i] * y.values[l * y.m + j];
 			}
-			res.values[j * x.m + i] = rbf_eval_rsq(
+			int pos = i * res.m + j;
+			res.values[pos] = rbf_eval_rsq(
 					(xsq[i] + ysq[j] - 2 * hlp) / (_gamma * _gamma));
 #ifdef DEBUG
-			sprintf(temp, "xsq=%.12f, ysq=%.12f, x*y=%.12f\n", xsq[i], ysq[j], hlp);
+			sprintf(temp, "xsq=%.12f, ysq=%.12f, x*y=%.12f\n", xsq[i], ysq[j],
+					hlp);
 			std::cout << temp;
-			sprintf(temp, "r=%.12f, res[%d,%d]=%.12f\n", (xsq[i] + ysq[j] - 2 * hlp), i, j, res[j * x.m + i]);
+			sprintf(temp, "r=%.12f, res[%d,%d]=%.12f\n",
+					(xsq[i] + ysq[j] - 2 * hlp), i, j, res.values[pos]);
 			std::cout << temp;
 #endif
 		}

@@ -10,6 +10,7 @@
 
 #include <math.h>
 #include <omp.h>
+#include <sstream>
 
 using namespace std;
 
@@ -28,24 +29,44 @@ struct Matrix {
 	double* values;
 
 public:
-//	Matrix mtimes(Matrix other) {
-//		Matrix res;
-//		res.n = n;
-//		res.m = other.m;
-//		std::cout << "matrix size " << res.n << " x " << res.m << endl;
-//		for (int i = 0; i < res.n; i++) {
-//			for (int j = 0; j < res.m; i++) {
-//				int pos = i * res.m + j;
-//				std::cout << "pos " << pos << endl;
-//				res.values[pos] = 0;
-//				for (int k = 0; k < m; k++) {
-//					res.values[pos] += values[i * m + k]
-//							* other.values[k * i + j];
-//				}
-//			}
-//		}
-//		return res;
-//	}
+	Matrix() :
+			n(0), m(0) {
+	}
+	;
+
+	Matrix(int n, int m) :
+			n(n), m(m) {
+		values = new double[n * m];
+	}
+	;
+
+	friend ostream & operator<<(ostream &os, Matrix &m);
+
+	Matrix mtimes(Matrix other) {
+		Matrix res = Matrix(n, other.m);
+		for (int i = 0; i < res.n; i++) {
+			for (int j = 0; j < res.m; j++) {
+				int pos = i * res.m + j;
+				//			std::cout << "pos " << pos << endl;
+				res.values[pos] = 0;
+				for (int k = 0; k < m; k++) {
+					res.values[pos] += values[i * m + k]
+							* other.values[k * other.m + j];
+				}
+			}
+		}
+		return res;
+	}
+
+	Matrix transpose() {
+		Matrix res = Matrix(m,n);
+		for (int i=0; i<n; i++) {
+			for (int j=0; j<m; j++) {
+				res.values[j*n+i] = values[i*m+j];
+			}
+		}
+		return res;
+	}
 };
 
 class RBFKernel {

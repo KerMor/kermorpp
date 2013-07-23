@@ -7,8 +7,9 @@
 
 #include "kermorpp.h"
 #include <iostream>
-//#include <stdio.h>
 #include <fstream>
+
+//#include <stdio.h>
 //#include <cstdlib>
 //#include <ios>
 
@@ -16,7 +17,17 @@ using namespace std;
 
 namespace kermorpp {
 
-KernelExpansion::KernelExpansion() {
+ostream & operator<<(ostream & os, Matrix &m) {
+	os << m.n << " x " << m.m << " matrix [";
+	for (int i = 0; i < m.n * m.m; i++) {
+		os << m.values[i] << ", ";
+	}
+	os << "]";
+	return os;
+}
+
+KernelExpansion::KernelExpansion() :
+		centers(Matrix(0, 0)), coeffs(Matrix(0, 0)), kernel(0) {
 }
 
 KernelExpansion::~KernelExpansion() {
@@ -29,27 +40,14 @@ Matrix KernelExpansion::evaluate(Matrix points) {
 				<< " vs points dimension: " << points.n << endl;
 		exit(-1);
 	}
-	Matrix other = kernel->evaluate(centers, points);
-	cout << "done eval kexp " << endl;
+	cout << "evaluating kexp.. " << endl << "centers:  " << centers << endl
+			<< "points: " << points << endl;
 
-	Matrix res;
-	res.n = coeffs.n;
-	res.m = other.m;
-	std::cout << "matrix size " << res.n << " x " << res.m << endl;
-	for (int i = 0; i < res.n; i++) {
-		for (int j = 0; j < res.m; i++) {
-			int pos = i * res.m + j;
-			std::cout << "pos " << pos << endl;
-			res.values[pos] = 0;
-			for (int k = 0; k < coeffs.m; k++) {
-				res.values[pos] += coeffs.values[i * coeffs.m + k]
-						* other.values[k * i + j];
-			}
-		}
-	}
+	Matrix kvec = kernel->evaluate(centers,points);
 
-	return res;
-//	return coeffs.mtimes(kvec);
+	cout << "done eval kexp. kernel vector: " << kvec << endl;
+
+	return coeffs.mtimes(kvec); //.transpose()
 }
 
 void KernelExpansion::loadFrom(const char* dir) {
@@ -67,12 +65,13 @@ void KernelExpansion::loadFrom(const char* dir) {
 		cerr << "Unknown kernel type: " << kdata.values[0] << endl;
 		break;
 	}
-	cout << "done loading kernel" << endl;
+//	cout << "done loading kernel" << endl;
 
 	centers = loadMatrix("centers.bin");
-	cout << "done loading centers" << endl;
+	cout << "done loading centers: " << centers << endl;
+
 	coeffs = loadMatrix("coeffs.bin");
-	cout << "done loading coeffs" << endl;
+	cout << "done loading coeffs: " << coeffs << endl;
 }
 
 Vector KernelExpansion::loadVector(const char* file) {
@@ -103,7 +102,7 @@ Vector KernelExpansion::loadVector(const char* file) {
 				reverse(buf, buf + DOUBLE_BYTES);
 			copy(buf, buf + DOUBLE_BYTES,
 					reinterpret_cast<char*>(&res.values[l]));
-			cout << "vec[" << l << "] nach read:" << res.values[l] << endl;
+//			cout << "vec[" << l << "] nach read:" << res.values[l] << endl;
 		}
 	}
 	fs.close();
@@ -112,7 +111,6 @@ Vector KernelExpansion::loadVector(const char* file) {
 }
 
 Matrix KernelExpansion::loadMatrix(const char* file) {
-	Matrix res;
 
 	ifstream fs;
 	fs.open(file, ios::in | ios::binary);
@@ -123,20 +121,21 @@ Matrix KernelExpansion::loadMatrix(const char* file) {
 		bool le = little_endian();
 		fs.seekg(0, ios::beg);
 
+		int n, m;
 		// Faster would be: fs.read(reinterpret_cast<char*>(&res.n), INT_BYTES);
 		// But have to take care of endianness
 		fs.read(buf, INT_BYTES);
 		if (le)
 			reverse(buf, buf + INT_BYTES);
-		copy(buf, buf + INT_BYTES, reinterpret_cast<char*>(&res.n));
+		copy(buf, buf + INT_BYTES, reinterpret_cast<char*>(&n));
 
 		fs.read(buf, INT_BYTES);
 		if (le)
 			reverse(buf, buf + INT_BYTES);
-		copy(buf, buf + INT_BYTES, reinterpret_cast<char*>(&res.m));
-		cout << "Reading " << res.n << " x " << res.m << " matrix" << endl;
+		copy(buf, buf + INT_BYTES, reinterpret_cast<char*>(&m));
 
-		res.values = new double[res.n * res.m];
+		Matrix res = Matrix(n, m);
+		cout << "Reading " << res.n << " x " << res.m << " matrix" << endl;
 		for (int l = 0; l < res.n * res.m; l++) {
 			//fs.read(reinterpret_cast<char*>(&res.values[l]), DOUBLE_BYTES);
 			fs.read(buf, DOUBLE_BYTES);
@@ -144,12 +143,12 @@ Matrix KernelExpansion::loadMatrix(const char* file) {
 				reverse(buf, buf + DOUBLE_BYTES);
 			copy(buf, buf + DOUBLE_BYTES,
 					reinterpret_cast<char*>(&res.values[l]));
-			cout << "mat[" << l << "] nach read:" << res.values[l] << endl;
+//			cout << "mat[" << l << "] nach read:" << res.values[l] << endl;
 		}
+		return res;
 	}
 	fs.close();
-
-	return res;
+	return Matrix();
 }
 
 inline bool KernelExpansion::little_endian(void) {
