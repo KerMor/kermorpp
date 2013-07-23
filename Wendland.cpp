@@ -5,7 +5,7 @@
  *      Author: CreaByte
  */
 
-#include "Wendland.h"
+#include "kermorpp.h"
 #include <math.h>
 #include <xutility>
 

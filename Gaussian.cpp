@@ -5,7 +5,7 @@
  *      Author: CreaByte
  */
 
-#include "Gaussian.h"
+#include "kermorpp.h"
 
 namespace kermorpp {
 

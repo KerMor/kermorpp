@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <iostream>
-#include "RBFKernel.h"
+#include "kermorpp.h"
 
 namespace kermorpp {
 

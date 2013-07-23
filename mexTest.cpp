@@ -7,8 +7,7 @@
 
 #include <mex.h>
 #include <math.h>
-#include "Gaussian.h"
-#include "Wendland.h"
+#include "kermorpp.h"
 #include "mstream.h"
 #include <streambuf>
 #include <iostream>  // std::cout
