@@ -11,6 +11,8 @@
 #include <math.h>
 #include <omp.h>
 
+namespace kermorpp {
+
 class RBFKernel {
 
 public:
@@ -20,7 +22,7 @@ public:
 	double* evaluate(double* x, double* y, int d, int n, int m);
 
 protected:
-	inline double rbf_eval_rsq(double rsq);
+	virtual double rbf_eval_rsq(double rsq) = 0;
 
 private:
 	void sumsq(double* x, int n, int m, double* res);
@@ -28,5 +30,7 @@ private:
 public:
 	double _gamma;
 };
+
+}
 
 #endif /* KERNEL_H_ */

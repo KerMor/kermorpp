@@ -10,10 +10,16 @@
 
 #include "RBFKernel.h"
 
-class Gaussian : public RBFKernel {
+namespace kermorpp {
+
+class Gaussian: public RBFKernel {
 public:
 	Gaussian(double gamma);
 	virtual ~Gaussian();
+protected:
+	double Gaussian::rbf_eval_rsq(double rsq);
 };
+
+}
 
 #endif /* GAUSSIAN_H_ */

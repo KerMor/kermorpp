@@ -7,13 +7,19 @@
 
 #include "Gaussian.h"
 
+namespace kermorpp {
+
 Gaussian::Gaussian(double gamma) :
 		RBFKernel(gamma) {
-	// TODO Auto-generated constructor stub
-
 }
 
 Gaussian::~Gaussian() {
-	// TODO Auto-generated destructor stub
+}
+
+double Gaussian::rbf_eval_rsq(double rsq) {
+	// Default implementation: Gaussian (r^2 is passed)
+	return exp(-rsq);
+}
+
 }
 

@@ -8,11 +8,11 @@
 #include <mex.h>
 #include <math.h>
 #include "Gaussian.h"
+#include "Wendland.h"
 #include "mstream.h"
 #include <streambuf>
-//#include <string>
 #include <iostream>  // std::cout
-//#include <sstream>
+using namespace kermorpp;
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
 
@@ -22,33 +22,20 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
 	double *x, *y, *res, *mres;
 	size_t m, n, d, i;
 
-#ifdef DEBUG
-	char temp[100];
-	sprintf(temp, "nlhs=%d, nrhs=%d\n", nlhs, nrhs);
-	mexPrintf(temp);
-#endif
-
 	d = mxGetM(prhs[0]);
 	n = mxGetN(prhs[0]);
 	x = mxGetPr(prhs[0]);
 
-#ifdef DEBUG
-	sprintf(temp, "x size: %d x %d\n", d, n);
-	mexPrintf(temp);
-#endif
-
 	m = mxGetN(prhs[1]);
 	y = mxGetPr(prhs[1]);
 
-#ifdef DEBUG
-	sprintf(temp, "y size: %d x %d\n", d, m);
-	mexPrintf(temp);
-#endif
+	double gamma = mxGetScalar(prhs[2]);
 
-	Gaussian* kernel = new Gaussian(1);
+//	Gaussian* kernel = new Gaussian(gamma);
+	Wendland* kernel = new Wendland(gamma,2,2);
 	res = kernel->evaluate(x, y, d, n, m);
 
-	plhs[0] = mxCreateDoubleMatrix(m, m, mxREAL);
+	plhs[0] = mxCreateDoubleMatrix(n, m, mxREAL);
 	mres = mxGetPr(plhs[0]);
 	for (i = 0; i < n * m; i++) {
 		mres[i] = res[i];
@@ -56,3 +43,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
 
 	std::cout.rdbuf(outbuf);
 }
+
+//#ifdef DEBUG
+//	sprintf(temp, "y size: %d x %d\n", d, m);
+//	mexPrintf(temp);
+//#endif
