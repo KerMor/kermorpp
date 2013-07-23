@@ -11,6 +11,8 @@
 #include <math.h>
 #include <omp.h>
 
+using namespace std;
+
 namespace kermorpp {
 
 const int INT_BYTES = 4; // sizeof(int);
@@ -22,8 +24,28 @@ struct Vector {
 };
 
 struct Matrix {
-	int n,m;
+	int n, m;
 	double* values;
+
+public:
+//	Matrix mtimes(Matrix other) {
+//		Matrix res;
+//		res.n = n;
+//		res.m = other.m;
+//		std::cout << "matrix size " << res.n << " x " << res.m << endl;
+//		for (int i = 0; i < res.n; i++) {
+//			for (int j = 0; j < res.m; i++) {
+//				int pos = i * res.m + j;
+//				std::cout << "pos " << pos << endl;
+//				res.values[pos] = 0;
+//				for (int k = 0; k < m; k++) {
+//					res.values[pos] += values[i * m + k]
+//							* other.values[k * i + j];
+//				}
+//			}
+//		}
+//		return res;
+//	}
 };
 
 class RBFKernel {
@@ -32,13 +54,13 @@ public:
 	RBFKernel(double gamma);
 	virtual ~RBFKernel();
 
-	double* evaluate(double* x, double* y, int d, int n, int m);
+	Matrix evaluate(Matrix x, Matrix y);
 
 protected:
 	virtual double rbf_eval_rsq(double rsq) = 0;
 
 private:
-	void sumsq(double* x, int n, int m, double* res);
+	void sumsq(Matrix x, double* res);
 
 public:
 	double _gamma;
@@ -49,7 +71,7 @@ public:
 	KernelExpansion();
 	virtual ~KernelExpansion();
 	void loadFrom(const char* dir);
-	double* evaluate(double *x);
+	Matrix evaluate(Matrix points);
 
 private:
 	Vector loadVector(const char* file);
@@ -57,7 +79,7 @@ private:
 	inline bool little_endian(void);
 
 public:
-	double *coeffs, *centers;
+	Matrix coeffs, centers;
 	RBFKernel *kernel;
 };
 

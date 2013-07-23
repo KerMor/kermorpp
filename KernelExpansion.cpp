@@ -23,31 +23,56 @@ KernelExpansion::~KernelExpansion() {
 
 }
 
-double* KernelExpansion::evaluate(double *x) {
-	return new double[1];
+Matrix KernelExpansion::evaluate(Matrix points) {
+	if (centers.n != points.n) {
+		cerr << "Argument dimension mismatch. Center dimension:" << centers.n
+				<< " vs points dimension: " << points.n << endl;
+		exit(-1);
+	}
+	Matrix other = kernel->evaluate(centers, points);
+	cout << "done eval kexp " << endl;
+
+	Matrix res;
+	res.n = coeffs.n;
+	res.m = other.m;
+	std::cout << "matrix size " << res.n << " x " << res.m << endl;
+	for (int i = 0; i < res.n; i++) {
+		for (int j = 0; j < res.m; i++) {
+			int pos = i * res.m + j;
+			std::cout << "pos " << pos << endl;
+			res.values[pos] = 0;
+			for (int k = 0; k < coeffs.m; k++) {
+				res.values[pos] += coeffs.values[i * coeffs.m + k]
+						* other.values[k * i + j];
+			}
+		}
+	}
+
+	return res;
+//	return coeffs.mtimes(kvec);
 }
 
 void KernelExpansion::loadFrom(const char* dir) {
 
 	Vector kdata = loadVector("kernel.bin");
-	switch ((int)kdata.values[0]) {
+	switch ((int) kdata.values[0]) {
 	case 1:
 		kernel = new Gaussian(kdata.values[1]);
 		break;
 	case 2:
-		kernel = new Wendland(kdata.values[1], kdata.values[2], kdata.values[3]);
+		kernel = new Wendland(kdata.values[1], kdata.values[2],
+				kdata.values[3]);
 		break;
 	default:
 		cerr << "Unknown kernel type: " << kdata.values[0] << endl;
 		break;
 	}
+	cout << "done loading kernel" << endl;
 
-	Matrix cent = loadMatrix("centers.bin");
-	centers = cent.values;
-
-	Matrix coef = loadMatrix("coeffs.bin");
-	coeffs = coef.values;
-
+	centers = loadMatrix("centers.bin");
+	cout << "done loading centers" << endl;
+	coeffs = loadMatrix("coeffs.bin");
+	cout << "done loading coeffs" << endl;
 }
 
 Vector KernelExpansion::loadVector(const char* file) {
@@ -111,7 +136,7 @@ Matrix KernelExpansion::loadMatrix(const char* file) {
 		copy(buf, buf + INT_BYTES, reinterpret_cast<char*>(&res.m));
 		cout << "Reading " << res.n << " x " << res.m << " matrix" << endl;
 
-		res.values = new double[res.n*res.m];
+		res.values = new double[res.n * res.m];
 		for (int l = 0; l < res.n * res.m; l++) {
 			//fs.read(reinterpret_cast<char*>(&res.values[l]), DOUBLE_BYTES);
 			fs.read(buf, DOUBLE_BYTES);
