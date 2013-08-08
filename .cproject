@@ -81,7 +81,7 @@
 									<listOptionValue builtIn="false" value="&quot;D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;D:\Program Files\MATLAB\R2013a\extern\include&quot;"/>
 								</option>
-								<option id="org.eclipse.cdt.msvc.cl.option.openmp.917884064" superClass="org.eclipse.cdt.msvc.cl.option.openmp" value="true" valueType="boolean"/>
+								<option id="org.eclipse.cdt.msvc.cl.option.openmp.917884064" name="Enable OpenMP (/openmp)" superClass="org.eclipse.cdt.msvc.cl.option.openmp" value="true" valueType="boolean"/>
 								<inputType id="org.eclipse.cdt.msvc.cl.inputType.c.1648918213" superClass="org.eclipse.cdt.msvc.cl.inputType.c"/>
 							</tool>
 							<tool id="org.eclipse.cdt.msvc.cl.lib.release.198564556" name="C++ Compiler (cl)" superClass="org.eclipse.cdt.msvc.cl.lib.release">
@@ -91,7 +91,7 @@
 									<listOptionValue builtIn="false" value="&quot;D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;D:\Program Files\MATLAB\R2013a\extern\include&quot;"/>
 								</option>
-								<option id="org.eclipse.cdt.msvc.cl.option.openmp.290496391" superClass="org.eclipse.cdt.msvc.cl.option.openmp" value="true" valueType="boolean"/>
+								<option id="org.eclipse.cdt.msvc.cl.option.openmp.290496391" name="Enable OpenMP (/openmp)" superClass="org.eclipse.cdt.msvc.cl.option.openmp" value="true" valueType="boolean"/>
 								<inputType id="org.eclipse.cdt.msvc.cl.inputType.1549982108" superClass="org.eclipse.cdt.msvc.cl.inputType"/>
 							</tool>
 							<tool id="org.eclipse.cdt.msvc.rc.lib.release.882286946" name="Resource Compiler (rc)" superClass="org.eclipse.cdt.msvc.rc.lib.release">
