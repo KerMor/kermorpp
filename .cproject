@@ -1,117 +1,124 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
-		<cconfiguration id="org.eclipse.cdt.msvc.lib.debug.627867368">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="org.eclipse.cdt.msvc.lib.debug.627867368" moduleId="org.eclipse.cdt.core.settings" name="Debug">
-				<externalSettings>
-					<externalSetting>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/KerMor++"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/KerMor++/Debug"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="KerMor++" srcPrefixMapping="" srcRootPath=""/>
-					</externalSetting>
-				</externalSettings>
+		<cconfiguration id="cdt.managedbuild.config.gnu.exe.debug.827197082">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.exe.debug.827197082" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings/>
 				<extensions>
-					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
-					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="lib" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" description="" id="org.eclipse.cdt.msvc.lib.debug.627867368" name="Debug" parent="org.eclipse.cdt.msvc.lib.debug">
-					<folderInfo id="org.eclipse.cdt.msvc.lib.debug.627867368." name="/" resourcePath="">
-						<toolChain id="org.eclipse.cdt.msvc.toolchain.lib.debug.584170729" name="Microsoft Visual C++" superClass="org.eclipse.cdt.msvc.toolchain.lib.debug">
-							<targetPlatform id="org.eclipse.cdt.msvc.targetPlatform.lib.debug.1350082506" superClass="org.eclipse.cdt.msvc.targetPlatform.lib.debug"/>
-							<builder buildPath="${workspace_loc:/KerMor++/Debug}" id="org.eclipse.cdt.msvc.builder.214918460" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="org.eclipse.cdt.msvc.builder"/>
-							<tool id="org.eclipse.cdt.msvc.cl.c.lib.debug.2140738810" name="C Compiler (cl)" superClass="org.eclipse.cdt.msvc.cl.c.lib.debug">
-								<option id="org.eclipse.cdt.msvc.cl.option.optimization.782804662" name="Optimization" superClass="org.eclipse.cdt.msvc.cl.option.optimization" value="org.eclipse.cdt.msvc.cl.option.optimization.default" valueType="enumerated"/>
-								<option id="org.eclipse.cdt.msvc.cl.option.debugFormat.199767548" name="Debug Information Format" superClass="org.eclipse.cdt.msvc.cl.option.debugFormat" value="org.eclipse.cdt.msvc.cl.option.debugFormat.complete" valueType="enumerated"/>
-								<option id="org.eclipse.cdt.msvc.cl.option.includes.2050202704" name="Include Path (/I)" superClass="org.eclipse.cdt.msvc.cl.option.includes" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files\MATLAB\R2013a\extern\include&quot;"/>
+				<configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="Debug config" id="cdt.managedbuild.config.gnu.exe.debug.827197082" name="Debug" parent="cdt.managedbuild.config.gnu.exe.debug">
+					<folderInfo id="cdt.managedbuild.config.gnu.exe.debug.827197082." name="/" resourcePath="">
+						<toolChain id="cdt.managedbuild.toolchain.gnu.exe.debug.280480146" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.debug">
+							<targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.debug.1920224039" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.debug"/>
+							<builder buildPath="${workspace_loc:/KerMor++}/Debug" id="cdt.managedbuild.target.gnu.builder.exe.debug.615521016" keepEnvironmentInBuildfile="false" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.exe.debug"/>
+							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1829503542" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.1895689141" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug">
+								<option id="gnu.cpp.compiler.exe.debug.option.optimization.level.898261887" name="Optimization Level" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.exe.debug.option.debugging.level.164367026" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.include.paths.1176640108" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/local/MATLAB/R2013a/extern/include"/>
 								</option>
-								<inputType id="org.eclipse.cdt.msvc.cl.inputType.c.906097249" superClass="org.eclipse.cdt.msvc.cl.inputType.c"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1110812657" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
-							<tool id="org.eclipse.cdt.msvc.cl.lib.debug.266611225" name="C++ Compiler (cl)" superClass="org.eclipse.cdt.msvc.cl.lib.debug">
-								<option id="org.eclipse.cdt.msvc.cl.option.optimization.1979049722" name="Optimization" superClass="org.eclipse.cdt.msvc.cl.option.optimization" value="org.eclipse.cdt.msvc.cl.option.optimization.default" valueType="enumerated"/>
-								<option id="org.eclipse.cdt.msvc.cl.option.debugFormat.1881715818" name="Debug Information Format" superClass="org.eclipse.cdt.msvc.cl.option.debugFormat" value="org.eclipse.cdt.msvc.cl.option.debugFormat.complete" valueType="enumerated"/>
-								<option id="org.eclipse.cdt.msvc.cl.option.includes.1017858602" name="Include Path (/I)" superClass="org.eclipse.cdt.msvc.cl.option.includes" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files\MATLAB\R2013a\extern\include&quot;"/>
+							<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.332642629" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug">
+								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.exe.debug.option.optimization.level.196257128" name="Optimization Level" superClass="gnu.c.compiler.exe.debug.option.optimization.level" valueType="enumerated"/>
+								<option id="gnu.c.compiler.exe.debug.option.debugging.level.1897367298" name="Debug Level" superClass="gnu.c.compiler.exe.debug.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.include.paths.1050997767" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/local/MATLAB/R2013a/extern/include"/>
 								</option>
-								<inputType id="org.eclipse.cdt.msvc.cl.inputType.478954264" superClass="org.eclipse.cdt.msvc.cl.inputType"/>
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1992487229" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
-							<tool id="org.eclipse.cdt.msvc.rc.lib.debug.1695302924" name="Resource Compiler (rc)" superClass="org.eclipse.cdt.msvc.rc.lib.debug">
-								<option id="org.eclipse.cdt.msvc.rc.option.includes.1759125896" name="Include Path (/I)" superClass="org.eclipse.cdt.msvc.rc.option.includes" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files\MATLAB\R2013a\extern\include&quot;"/>
+							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.278681898" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.50019633" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
+								<option id="gnu.cpp.link.option.paths.1969126462" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1683682522" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.assembler.exe.debug.1546729456" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.debug">
+								<option id="gnu.both.asm.option.include.paths.1584321864" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/local/MATLAB/R2013a/extern/include"/>
 								</option>
-								<inputType id="org.eclipse.cdt.msvc.rc.inputType.725976450" superClass="org.eclipse.cdt.msvc.rc.inputType"/>
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.205037998" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
-							<tool id="org.eclipse.cdt.msvc.link.1605399005" name="Linker (link)" superClass="org.eclipse.cdt.msvc.link">
-								<option id="org.eclipse.cdt.msvc.link.option.debug.1001069178" name="Generate Debug Info (/debug)" superClass="org.eclipse.cdt.msvc.link.option.debug" value="true" valueType="boolean"/>
-							</tool>
-							<tool id="org.eclipse.cdt.msvc.lib.lib.debug.2110355276" name="Library Manager (lib)" superClass="org.eclipse.cdt.msvc.lib.lib.debug"/>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry excluding="mex/*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
-		<cconfiguration id="org.eclipse.cdt.msvc.lib.release.1954768025">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="org.eclipse.cdt.msvc.lib.release.1954768025" moduleId="org.eclipse.cdt.core.settings" name="Release">
+		<cconfiguration id="cdt.managedbuild.config.gnu.so.release.1991428892">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.so.release.1991428892" moduleId="org.eclipse.cdt.core.settings" name="Release">
 				<externalSettings>
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/KerMor++"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/KerMor++/Release"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="KerMor++" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
-					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
-					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="lib" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" description="" id="org.eclipse.cdt.msvc.lib.release.1954768025" name="Release" parent="org.eclipse.cdt.msvc.lib.release">
-					<folderInfo id="org.eclipse.cdt.msvc.lib.release.1954768025." name="/" resourcePath="">
-						<toolChain id="org.eclipse.cdt.msvc.toolchain.lib.release.1949760893" name="Microsoft Visual C++" superClass="org.eclipse.cdt.msvc.toolchain.lib.release">
-							<targetPlatform id="org.eclipse.cdt.msvc.targetPlatform.lib.release.563963173" superClass="org.eclipse.cdt.msvc.targetPlatform.lib.release"/>
-							<builder buildPath="${workspace_loc:/KerMor++/Release}" id="org.eclipse.cdt.msvc.builder.306465913" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="org.eclipse.cdt.msvc.builder"/>
-							<tool id="org.eclipse.cdt.msvc.cl.c.lib.release.2067682540" name="C Compiler (cl)" superClass="org.eclipse.cdt.msvc.cl.c.lib.release">
-								<option id="org.eclipse.cdt.msvc.cl.option.optimization.139893109" name="Optimization" superClass="org.eclipse.cdt.msvc.cl.option.optimization"/>
-								<option id="org.eclipse.cdt.msvc.cl.option.debugFormat.1424434742" name="Debug Information Format" superClass="org.eclipse.cdt.msvc.cl.option.debugFormat"/>
-								<option id="org.eclipse.cdt.msvc.cl.option.includes.826513194" name="Include Path (/I)" superClass="org.eclipse.cdt.msvc.cl.option.includes" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files\MATLAB\R2013a\extern\include&quot;"/>
-								</option>
-								<option id="org.eclipse.cdt.msvc.cl.option.openmp.917884064" name="Enable OpenMP (/openmp)" superClass="org.eclipse.cdt.msvc.cl.option.openmp" value="true" valueType="boolean"/>
-								<inputType id="org.eclipse.cdt.msvc.cl.inputType.c.1648918213" superClass="org.eclipse.cdt.msvc.cl.inputType.c"/>
+				<configuration artifactExtension="so" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.so.release.1991428892" name="Release" parent="cdt.managedbuild.config.gnu.so.release">
+					<folderInfo id="cdt.managedbuild.config.gnu.so.release.1991428892." name="/" resourcePath="">
+						<toolChain id="cdt.managedbuild.toolchain.gnu.so.release.1598653096" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.so.release">
+							<targetPlatform id="cdt.managedbuild.target.gnu.platform.so.release.1057662592" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.so.release"/>
+							<builder buildPath="${workspace_loc:/KerMor++}/Release" id="cdt.managedbuild.target.gnu.builder.so.release.999811590" keepEnvironmentInBuildfile="false" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.so.release"/>
+							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1511884418" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.so.release.816510275" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.so.release">
+								<option id="gnu.cpp.compiler.so.release.option.optimization.level.838064724" name="Optimization Level" superClass="gnu.cpp.compiler.so.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.so.release.option.debugging.level.1731479899" name="Debug Level" superClass="gnu.cpp.compiler.so.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1915593374" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
-							<tool id="org.eclipse.cdt.msvc.cl.lib.release.198564556" name="C++ Compiler (cl)" superClass="org.eclipse.cdt.msvc.cl.lib.release">
-								<option id="org.eclipse.cdt.msvc.cl.option.optimization.2136844757" name="Optimization" superClass="org.eclipse.cdt.msvc.cl.option.optimization"/>
-								<option id="org.eclipse.cdt.msvc.cl.option.debugFormat.1943022240" name="Debug Information Format" superClass="org.eclipse.cdt.msvc.cl.option.debugFormat"/>
-								<option id="org.eclipse.cdt.msvc.cl.option.includes.1496550364" name="Include Path (/I)" superClass="org.eclipse.cdt.msvc.cl.option.includes" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files\MATLAB\R2013a\extern\include&quot;"/>
-								</option>
-								<option id="org.eclipse.cdt.msvc.cl.option.openmp.290496391" name="Enable OpenMP (/openmp)" superClass="org.eclipse.cdt.msvc.cl.option.openmp" value="true" valueType="boolean"/>
-								<inputType id="org.eclipse.cdt.msvc.cl.inputType.1549982108" superClass="org.eclipse.cdt.msvc.cl.inputType"/>
+							<tool id="cdt.managedbuild.tool.gnu.c.compiler.so.release.272107773" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.so.release">
+								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.so.release.option.optimization.level.1733935593" name="Optimization Level" superClass="gnu.c.compiler.so.release.option.optimization.level" valueType="enumerated"/>
+								<option id="gnu.c.compiler.so.release.option.debugging.level.521082533" name="Debug Level" superClass="gnu.c.compiler.so.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1290936878" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
-							<tool id="org.eclipse.cdt.msvc.rc.lib.release.882286946" name="Resource Compiler (rc)" superClass="org.eclipse.cdt.msvc.rc.lib.release">
-								<option id="org.eclipse.cdt.msvc.rc.option.includes.611852342" name="Include Path (/I)" superClass="org.eclipse.cdt.msvc.rc.option.includes" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Program Files\MATLAB\R2013a\extern\include&quot;"/>
-								</option>
-								<inputType id="org.eclipse.cdt.msvc.rc.inputType.57134226" superClass="org.eclipse.cdt.msvc.rc.inputType"/>
+							<tool id="cdt.managedbuild.tool.gnu.c.linker.so.release.1162737447" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.so.release">
+								<option defaultValue="true" id="gnu.c.link.so.release.option.shared.1435317117" name="Shared (-shared)" superClass="gnu.c.link.so.release.option.shared" valueType="boolean"/>
 							</tool>
-							<tool id="org.eclipse.cdt.msvc.link.310100624" name="Linker (link)" superClass="org.eclipse.cdt.msvc.link"/>
-							<tool id="org.eclipse.cdt.msvc.lib.lib.release.409971633" name="Library Manager (lib)" superClass="org.eclipse.cdt.msvc.lib.lib.release"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.so.release.125178695" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.so.release">
+								<option defaultValue="true" id="gnu.cpp.link.so.release.option.shared.1822830757" name="Shared (-shared)" superClass="gnu.cpp.link.so.release.option.shared" valueType="boolean"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.958806143" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.assembler.so.release.1750949729" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.so.release">
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.83431543" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry excluding="mex/*" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="KerMor++.org.eclipse.cdt.msvc.projectType.lib.2143773902" name="Static Library" projectType="org.eclipse.cdt.msvc.projectType.lib"/>
+		<project id="KerMor++.org.eclipse.cdt.msvc.projectType.lib.2143773902" name="Static Library"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
@@ -123,8 +130,26 @@
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+		<buildTargets>
+			<target name="Test" path="test" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>Test</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+		</buildTargets>
+	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.so.release.1991428892;cdt.managedbuild.config.gnu.so.release.1991428892.;cdt.managedbuild.tool.gnu.cpp.compiler.so.release.816510275;cdt.managedbuild.tool.gnu.cpp.compiler.input.1915593374">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.827197082;cdt.managedbuild.config.gnu.exe.debug.827197082.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.332642629;cdt.managedbuild.tool.gnu.c.compiler.input.1992487229">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.msvc.lib.release.1954768025;org.eclipse.cdt.msvc.lib.release.1954768025.;org.eclipse.cdt.msvc.cl.lib.release.198564556;org.eclipse.cdt.msvc.cl.inputType.1549982108">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.msw.build.clScannerInfo"/>
 		</scannerConfigBuildInfo>
@@ -134,9 +159,14 @@
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.msvc.lib.debug.627867368;org.eclipse.cdt.msvc.lib.debug.627867368.;org.eclipse.cdt.msvc.cl.lib.debug.266611225;org.eclipse.cdt.msvc.cl.inputType.478954264">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.msw.build.clScannerInfo"/>
 		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.827197082;cdt.managedbuild.config.gnu.exe.debug.827197082.;cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.1895689141;cdt.managedbuild.tool.gnu.cpp.compiler.input.1110812657">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.so.release.1991428892;cdt.managedbuild.config.gnu.so.release.1991428892.;cdt.managedbuild.tool.gnu.c.compiler.so.release.272107773;cdt.managedbuild.tool.gnu.c.compiler.input.1290936878">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="org.eclipse.cdt.msvc.lib.debug.627867368;org.eclipse.cdt.msvc.lib.debug.627867368.;org.eclipse.cdt.msvc.cl.c.lib.debug.2140738810;org.eclipse.cdt.msvc.cl.inputType.c.906097249">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.msw.build.clScannerInfo"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

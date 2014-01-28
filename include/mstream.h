@@ -9,6 +9,8 @@
 #define MSTREAM_H_
 
 #include <streambuf>
+#include <ios>
+#include <stdio.h>
 
 class mstream: public std::streambuf {
 public:

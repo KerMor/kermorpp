@@ -7,27 +7,21 @@
 #include <iostream>
 #include <stdio.h>
 #include <cstddef> // size_t is a typedef on an unsigned int
-#include "../kermorpp.h"
+#include "kermorpp.h"
 
 using namespace kermorpp;
 using namespace std;
 
-int main() {
-//     std::cout << "Number: " ;
-//     std::size_t Number ;
-//     std::cin >> Number ;
-//     if ( Number > 10 )
-//          std::cerr << "Hey!! Out of Range!" << std::endl ;
-//     elses
-//          std::cout << "It's: \"" << MyStringDigits[Number-1] << "\"" << std::endl ;
-
+int main(int argc, char **argv) {
 	KernelExpansion *k = new KernelExpansion;
 
-//	cout << "done create" << endl;
+	char* path = ".";
+	if (argc == 2) {
+		path = argv[1];
+	}
 
-	k->loadFrom(".");
-
-//	cout << "done load" << endl;
+	cout << "loading expansion from " << path << endl;
+	k->loadFrom(path);
 
 	Matrix x;
 	x.n = 3;

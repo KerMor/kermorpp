@@ -5,9 +5,10 @@
  *      Author: CreaByte
  */
 
-#include <mex.h>
+#include "mex.h"
+#include "matrix.h"
 #include <math.h>
-#include "kermorpp.h"
+#include "../kermorpp.h"
 #include "mstream.h"
 #include <streambuf>
 #include <iostream>  // std::cout

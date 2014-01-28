@@ -9,8 +9,9 @@
 #include <iostream>
 #include <fstream>
 
-//#include <stdio.h>
-//#include <cstdlib>
+#include <cstring>
+#include <algorithm>
+#include <cstdlib>
 //#include <ios>
 
 using namespace std;
@@ -43,16 +44,17 @@ Matrix KernelExpansion::evaluate(Matrix points) {
 	cout << "evaluating kexp.. " << endl << "centers:  " << centers << endl
 			<< "points: " << points << endl;
 
-	Matrix kvec = kernel->evaluate(centers,points);
+	Matrix kvec = kernel->evaluate(centers, points);
 
 	cout << "done eval kexp. kernel vector: " << kvec << endl;
 
 	return coeffs.mtimes(kvec); //.transpose()
 }
 
-void KernelExpansion::loadFrom(const char* dir) {
+void KernelExpansion::loadFrom(char* dir) {
 
-	Vector kdata = loadVector("kernel.bin");
+	char* file = strcat(dir,strcat(DIR_SEPARATOR,"kernel.bin"));
+	Vector kdata = loadVector(file);
 	switch ((int) kdata.values[0]) {
 	case 1:
 		kernel = new Gaussian(kdata.values[1]);
@@ -65,16 +67,20 @@ void KernelExpansion::loadFrom(const char* dir) {
 		cerr << "Unknown kernel type: " << kdata.values[0] << endl;
 		break;
 	}
-//	cout << "done loading kernel" << endl;
 
-	centers = loadMatrix("centers.bin");
+	file = strcat(dir,strcat(DIR_SEPARATOR,"centers.bin"));
+	centers = loadMatrix(file);
 	cout << "done loading centers: " << centers << endl;
 
-	coeffs = loadMatrix("coeffs.bin");
+	file = strcat(dir,strcat(DIR_SEPARATOR,"coeffs.bin"));
+	coeffs = loadMatrix(file);
 	cout << "done loading coeffs: " << coeffs << endl;
 }
 
 Vector KernelExpansion::loadVector(const char* file) {
+
+	cout << "Loading vector from file " << file << endl;
+
 	Vector res;
 
 	ifstream fs;
@@ -157,6 +163,33 @@ inline bool KernelExpansion::little_endian(void) {
 	static bool is_little_endian_machine = (*pbyte(&word) == 0x1);
 	return is_little_endian_machine;
 }
+
+//void combine(char *destination, const char *path1, const char *path2) {
+//	if (path1 && *path1) {
+//		auto len = strlen(path1);
+//		strcpy(destination, path1);
+//
+//
+//		if (destination[len - 1] == DIR_SEPARATOR) {
+//			if (path2 && *path2) {
+//				strcpy(destination + len,
+//						(*path2 == DIR_SEPARATOR) ? (path2 + 1) : path2);
+//			}
+//		} else {
+//			if (path2 && *path2) {
+//				if (*path2 == DIR_SEPARATOR)
+//					strcpy(destination + len, path2);
+//				else {
+//					destination[len] = DIR_SEPARATOR;
+//					strcpy(destination + len + 1, path2);
+//				}
+//			}
+//		}
+//	} else if (path2 && *path2)
+//		strcpy(destination, path2);
+//	else
+//		destination[0] = '\0';
+//}
 
 }
 

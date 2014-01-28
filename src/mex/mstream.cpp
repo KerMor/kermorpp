@@ -6,7 +6,7 @@
  */
 
 #include "mstream.h"
-#include <mex.h>
+#include "mex.h"
 
 std::streamsize mstream::xsputn(const char *s, std::streamsize n) {
 	mexPrintf("%.*s", n, s);

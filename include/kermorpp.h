@@ -8,6 +8,12 @@
 #ifndef KERMORPP_H_
 #define KERMORPP_H_
 
+#if defined(WIN32)
+	#define DIR_SEPARATOR "\\"
+#else
+	#define DIR_SEPARATOR "/"
+#endif
+
 #include <math.h>
 #include <omp.h>
 #include <sstream>
@@ -59,10 +65,10 @@ public:
 	}
 
 	Matrix transpose() {
-		Matrix res = Matrix(m,n);
-		for (int i=0; i<n; i++) {
-			for (int j=0; j<m; j++) {
-				res.values[j*n+i] = values[i*m+j];
+		Matrix res = Matrix(m, n);
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				res.values[j * n + i] = values[i * m + j];
 			}
 		}
 		return res;
@@ -91,13 +97,14 @@ class KernelExpansion {
 public:
 	KernelExpansion();
 	virtual ~KernelExpansion();
-	void loadFrom(const char* dir);
+	void loadFrom(char* dir);
 	Matrix evaluate(Matrix points);
 
 private:
 	Vector loadVector(const char* file);
 	Matrix loadMatrix(const char* file);
 	inline bool little_endian(void);
+//	void combine(char *destination, const char *path1, const char *path2);
 
 public:
 	Matrix coeffs, centers;
@@ -109,7 +116,7 @@ public:
 	Wendland(double gamma, int d, int k);
 	virtual ~Wendland();
 protected:
-	double Wendland::rbf_eval_rsq(double rsq);
+	double rbf_eval_rsq(double rsq);
 
 private:
 	int _d, _k;
@@ -120,7 +127,7 @@ public:
 	Gaussian(double gamma);
 	virtual ~Gaussian();
 protected:
-	double Gaussian::rbf_eval_rsq(double rsq);
+	double rbf_eval_rsq(double rsq);
 };
 
 }
