@@ -2,3 +2,7 @@ Release
 Debug
 *.mexw64
 build/
+/Library
+/Test binary
+/Library shared
+gmon.out

@@ -47,9 +47,9 @@ void RBFKernel::sumsq(Matrix x, double* res) {
  */
 Matrix RBFKernel::evaluate(Matrix x, Matrix y) {
 
-//#ifdef DEBUG
+#ifdef DEBUG
 	char temp[1000];
-//#endif
+#endif
 
 	double hlp;
 	int i, j, l;

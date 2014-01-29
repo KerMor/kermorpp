@@ -17,11 +17,12 @@ INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 # create mtocpp
 file(GLOB sources "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+add_library(kermorpp_static STATIC ${sources})
 add_library(kermorpp SHARED ${sources})
 
 # create the test binary
 add_executable(kermorpp_test test/test)
-target_link_libraries(kermorpp_test kermorpp)
+target_link_libraries(kermorpp_test kermorpp_static)
 
 #INSTALL(TARGETS mtocpp mtocpp_post DESTINATION bin)
 #INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/License.txt DESTINATION ${CUSTOM_DOC_DIR})

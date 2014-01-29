@@ -3,6 +3,7 @@
 	<name>KerMor++</name>
 	<comment></comment>
 	<projects>
+		<project>KerMor++</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

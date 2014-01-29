@@ -9,9 +9,9 @@
 #define KERMORPP_H_
 
 #if defined(WIN32)
-	#define DIR_SEPARATOR "\\"
+#define DIR_SEPARATOR "\\"
 #else
-	#define DIR_SEPARATOR "/"
+#define DIR_SEPARATOR "/"
 #endif
 
 #include <math.h>
@@ -97,7 +97,7 @@ class KernelExpansion {
 public:
 	KernelExpansion();
 	virtual ~KernelExpansion();
-	void loadFrom(char* dir);
+	void loadFrom(string dir);
 	Matrix evaluate(Matrix points);
 
 private:

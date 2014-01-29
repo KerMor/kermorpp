@@ -15,12 +15,15 @@ using namespace std;
 int main(int argc, char **argv) {
 	KernelExpansion *k = new KernelExpansion;
 
-	char* path = ".";
+	string path = string(".");
 	if (argc == 2) {
-		path = argv[1];
+		path = string(argv[1]);
 	}
 
+#if DEBUG
 	cout << "loading expansion from " << path << endl;
+#endif
+
 	k->loadFrom(path);
 
 	Matrix x;
@@ -29,17 +32,18 @@ int main(int argc, char **argv) {
 	double xv[6] = {1.0, 1.0, .5, 1.5, 2.5, .5};
 	x.values = xv;
 
+#if DEBUG
 	cout << "done create arg: " << x << endl;
+#endif
 
 	Matrix res = k->evaluate(x);
 
+#if DEBUG
 	cout << "done eval: " << res << endl;
+#endif
 
-//	double x[4] = { 1.0, 1.0, .5, 1.5 };
-//	double y[6] = { 1.0, 1.0, .5, 1.5, 2.5, .5 };
-//
-//	Gaussian *g = new Gaussian(1);
-//	double *res = g->evaluate(x, y, 2, 2, 3);
+	k->kernel = new Gaussian(1);
+	res = k->evaluate(x);
 
 	return 0;
 }

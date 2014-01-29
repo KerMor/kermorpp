@@ -12,7 +12,6 @@
 #include <cstring>
 #include <algorithm>
 #include <cstdlib>
-//#include <ios>
 
 using namespace std;
 
@@ -32,29 +31,37 @@ KernelExpansion::KernelExpansion() :
 }
 
 KernelExpansion::~KernelExpansion() {
-
+	free(&centers);
+	free(&coeffs);
+	kernel->~RBFKernel();
+	free(kernel);
 }
 
 Matrix KernelExpansion::evaluate(Matrix points) {
 	if (centers.n != points.n) {
 		cerr << "Argument dimension mismatch. Center dimension:" << centers.n
-				<< " vs points dimension: " << points.n << endl;
+				<< " vs argument dimension: " << points.n << endl;
 		exit(-1);
 	}
+
+#if DEBUG
 	cout << "evaluating kexp.. " << endl << "centers:  " << centers << endl
-			<< "points: " << points << endl;
+	<< "points: " << points << endl;
+#endif
 
 	Matrix kvec = kernel->evaluate(centers, points);
 
+#if DEBUG
 	cout << "done eval kexp. kernel vector: " << kvec << endl;
+#endif
 
-	return coeffs.mtimes(kvec); //.transpose()
+	return coeffs.mtimes(kvec);
 }
 
-void KernelExpansion::loadFrom(char* dir) {
+void KernelExpansion::loadFrom(string dir) {
 
-	char* file = strcat(dir,strcat(DIR_SEPARATOR,"kernel.bin"));
-	Vector kdata = loadVector(file);
+	string file = dir + DIR_SEPARATOR + "kernel.bin";
+	Vector kdata = loadVector(file.c_str());
 	switch ((int) kdata.values[0]) {
 	case 1:
 		kernel = new Gaussian(kdata.values[1]);
@@ -68,18 +75,26 @@ void KernelExpansion::loadFrom(char* dir) {
 		break;
 	}
 
-	file = strcat(dir,strcat(DIR_SEPARATOR,"centers.bin"));
-	centers = loadMatrix(file);
-	cout << "done loading centers: " << centers << endl;
+	file = dir + DIR_SEPARATOR + "centers.bin";
+	centers = loadMatrix(file.c_str());
 
-	file = strcat(dir,strcat(DIR_SEPARATOR,"coeffs.bin"));
-	coeffs = loadMatrix(file);
+#if DEBUG
+	cout << "done loading centers: " << centers << endl;
+#endif
+
+	file = dir + DIR_SEPARATOR + "coeffs.bin";
+	coeffs = loadMatrix(file.c_str());
+
+#if DEBUG
 	cout << "done loading coeffs: " << coeffs << endl;
+#endif
 }
 
 Vector KernelExpansion::loadVector(const char* file) {
 
+#if DEBUG
 	cout << "Loading vector from file " << file << endl;
+#endif
 
 	Vector res;
 
@@ -98,17 +113,18 @@ Vector KernelExpansion::loadVector(const char* file) {
 		if (le)
 			reverse(buf, buf + INT_BYTES);
 		copy(buf, buf + INT_BYTES, reinterpret_cast<char*>(&res.n));
+
+#if DEBUG
 		cout << "n nach read:" << res.n << endl;
+#endif
 
 		res.values = new double[res.n];
 		for (int l = 0; l < res.n; l++) {
-			//fs.read(reinterpret_cast<char*>(&res.values[l]), DOUBLE_BYTES);
 			fs.read(buf, DOUBLE_BYTES);
 			if (le)
 				reverse(buf, buf + DOUBLE_BYTES);
 			copy(buf, buf + DOUBLE_BYTES,
 					reinterpret_cast<char*>(&res.values[l]));
-//			cout << "vec[" << l << "] nach read:" << res.values[l] << endl;
 		}
 	}
 	fs.close();
@@ -141,7 +157,11 @@ Matrix KernelExpansion::loadMatrix(const char* file) {
 		copy(buf, buf + INT_BYTES, reinterpret_cast<char*>(&m));
 
 		Matrix res = Matrix(n, m);
+
+#if DEBUG
 		cout << "Reading " << res.n << " x " << res.m << " matrix" << endl;
+#endif
+
 		for (int l = 0; l < res.n * res.m; l++) {
 			//fs.read(reinterpret_cast<char*>(&res.values[l]), DOUBLE_BYTES);
 			fs.read(buf, DOUBLE_BYTES);
@@ -149,7 +169,6 @@ Matrix KernelExpansion::loadMatrix(const char* file) {
 				reverse(buf, buf + DOUBLE_BYTES);
 			copy(buf, buf + DOUBLE_BYTES,
 					reinterpret_cast<char*>(&res.values[l]));
-//			cout << "mat[" << l << "] nach read:" << res.values[l] << endl;
 		}
 		return res;
 	}
@@ -163,33 +182,6 @@ inline bool KernelExpansion::little_endian(void) {
 	static bool is_little_endian_machine = (*pbyte(&word) == 0x1);
 	return is_little_endian_machine;
 }
-
-//void combine(char *destination, const char *path1, const char *path2) {
-//	if (path1 && *path1) {
-//		auto len = strlen(path1);
-//		strcpy(destination, path1);
-//
-//
-//		if (destination[len - 1] == DIR_SEPARATOR) {
-//			if (path2 && *path2) {
-//				strcpy(destination + len,
-//						(*path2 == DIR_SEPARATOR) ? (path2 + 1) : path2);
-//			}
-//		} else {
-//			if (path2 && *path2) {
-//				if (*path2 == DIR_SEPARATOR)
-//					strcpy(destination + len, path2);
-//				else {
-//					destination[len] = DIR_SEPARATOR;
-//					strcpy(destination + len + 1, path2);
-//				}
-//			}
-//		}
-//	} else if (path2 && *path2)
-//		strcpy(destination, path2);
-//	else
-//		destination[0] = '\0';
-//}
 
 }
 
