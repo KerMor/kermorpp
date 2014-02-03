@@ -12,22 +12,15 @@
 #include <cstring>
 #include <algorithm>
 #include <cstdlib>
+#include <Eigen/Core>
 
 using namespace std;
+using namespace Eigen;
 
 namespace kermorpp {
 
-ostream & operator<<(ostream & os, Matrix &m) {
-	os << m.n << " x " << m.m << " matrix [";
-	for (int i = 0; i < m.n * m.m; i++) {
-		os << m.values[i] << ", ";
-	}
-	os << "]";
-	return os;
-}
-
 KernelExpansion::KernelExpansion() :
-		centers(Matrix(0, 0)), coeffs(Matrix(0, 0)), kernel(0) {
+		centers(MatrixXd(0, 0)), coeffs(MatrixXd(0, 0)), kernel(0) {
 }
 
 KernelExpansion::~KernelExpansion() {
@@ -37,10 +30,11 @@ KernelExpansion::~KernelExpansion() {
 	free(kernel);
 }
 
-Matrix KernelExpansion::evaluate(Matrix points) {
-	if (centers.n != points.n) {
-		cerr << "Argument dimension mismatch. Center dimension:" << centers.n
-				<< " vs argument dimension: " << points.n << endl;
+MatrixXd KernelExpansion::evaluate(MatrixXd points) {
+	if (centers.rows() != points.rows()) {
+		cerr << "Argument dimension mismatch. Center dimension:"
+				<< centers.rows() << " vs argument dimension: " << points.rows()
+				<< endl;
 		exit(-1);
 	}
 
@@ -49,29 +43,28 @@ Matrix KernelExpansion::evaluate(Matrix points) {
 	<< "points: " << points << endl;
 #endif
 
-	Matrix kvec = kernel->evaluate(centers, points);
+	MatrixXd kvec = kernel->evaluate(centers, points);
 
 #if DEBUG
-	cout << "done eval kexp. kernel vector: " << kvec << endl;
+	cout << "done eval kexp. kernel vector: " << kvec << ", coeffs: " << coeffs << endl;
 #endif
 
-	return coeffs.mtimes(kvec);
+	return coeffs * kvec;
 }
 
 void KernelExpansion::loadFrom(string dir) {
 
 	string file = dir + DIR_SEPARATOR + "kernel.bin";
-	Vector kdata = loadVector(file.c_str());
-	switch ((int) kdata.values[0]) {
+	VectorXd kdata = loadVector(file.c_str());
+	switch ((int) kdata(0)) {
 	case 1:
-		kernel = new Gaussian(kdata.values[1]);
+		kernel = new Gaussian(kdata(1));
 		break;
 	case 2:
-		kernel = new Wendland(kdata.values[1], kdata.values[2],
-				kdata.values[3]);
+		kernel = new Wendland(kdata(1), kdata(2), kdata(3));
 		break;
 	default:
-		cerr << "Unknown kernel type: " << kdata.values[0] << endl;
+		cerr << "Unknown kernel data: " << kdata << endl;
 		break;
 	}
 
@@ -90,18 +83,18 @@ void KernelExpansion::loadFrom(string dir) {
 #endif
 }
 
-Vector KernelExpansion::loadVector(const char* file) {
+VectorXd KernelExpansion::loadVector(const char* file) {
 
 #if DEBUG
 	cout << "Loading vector from file " << file << endl;
 #endif
 
-	Vector res;
-
 	ifstream fs;
 	fs.open(file, ios::in | ios::binary);
 	if (!fs) {
 		cerr << "Not able to read file " << file << endl;
+		fs.close();
+		exit(-1);
 	} else {
 		char buf[DOUBLE_BYTES];
 		bool le = little_endian();
@@ -112,32 +105,31 @@ Vector KernelExpansion::loadVector(const char* file) {
 		fs.read(buf, INT_BYTES);
 		if (le)
 			reverse(buf, buf + INT_BYTES);
-		copy(buf, buf + INT_BYTES, reinterpret_cast<char*>(&res.n));
+		int n;
+		copy(buf, buf + INT_BYTES, reinterpret_cast<char*>(&n));
 
-#if DEBUG
-		cout << "n nach read:" << res.n << endl;
-#endif
-
-		res.values = new double[res.n];
-		for (int l = 0; l < res.n; l++) {
+		VectorXd res(n);
+		for (int l = 0; l < res.rows(); l++) {
 			fs.read(buf, DOUBLE_BYTES);
 			if (le)
 				reverse(buf, buf + DOUBLE_BYTES);
-			copy(buf, buf + DOUBLE_BYTES,
-					reinterpret_cast<char*>(&res.values[l]));
+			double tmp;
+			copy(buf, buf + DOUBLE_BYTES, reinterpret_cast<char*>(&tmp));
+			res(l) = tmp;
 		}
+		fs.close();
+		return res;
 	}
-	fs.close();
-
-	return res;
 }
 
-Matrix KernelExpansion::loadMatrix(const char* file) {
+MatrixXd KernelExpansion::loadMatrix(const char* file) {
 
 	ifstream fs;
 	fs.open(file, ios::in | ios::binary);
 	if (!fs) {
 		cerr << "Not able to read file " << file << endl;
+		fs.close();
+		exit(-1);
 	} else {
 		char buf[DOUBLE_BYTES];
 		bool le = little_endian();
@@ -156,24 +148,27 @@ Matrix KernelExpansion::loadMatrix(const char* file) {
 			reverse(buf, buf + INT_BYTES);
 		copy(buf, buf + INT_BYTES, reinterpret_cast<char*>(&m));
 
-		Matrix res = Matrix(n, m);
+		MatrixXd res(n, m);
 
 #if DEBUG
-		cout << "Reading " << res.n << " x " << res.m << " matrix" << endl;
+		cout << "Reading " << res.rows() << " x " << res.cols() << " matrix" << endl;
 #endif
 
-		for (int l = 0; l < res.n * res.m; l++) {
-			//fs.read(reinterpret_cast<char*>(&res.values[l]), DOUBLE_BYTES);
-			fs.read(buf, DOUBLE_BYTES);
-			if (le)
-				reverse(buf, buf + DOUBLE_BYTES);
-			copy(buf, buf + DOUBLE_BYTES,
-					reinterpret_cast<char*>(&res.values[l]));
+		for (int i = 0; i < res.rows(); i++) {
+			for (int j = 0; j < res.cols(); j++) {
+				//fs.read(reinterpret_cast<char*>(&res.values[l]), DOUBLE_BYTES);
+				fs.read(buf, DOUBLE_BYTES);
+				if (le)
+					reverse(buf, buf + DOUBLE_BYTES);
+				double tmp;
+				copy(buf, buf + DOUBLE_BYTES, reinterpret_cast<char*>(&tmp));
+				res(i, j) = tmp;
+			}
 		}
+		fs.close();
 		return res;
 	}
-	fs.close();
-	return Matrix();
+
 }
 
 inline bool KernelExpansion::little_endian(void) {

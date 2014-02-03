@@ -8,72 +8,24 @@
 #ifndef KERMORPP_H_
 #define KERMORPP_H_
 
+#define DEBUG true
+
 #if defined(WIN32)
 #define DIR_SEPARATOR "\\"
 #else
 #define DIR_SEPARATOR "/"
 #endif
 
-#include <math.h>
-#include <omp.h>
 #include <sstream>
+#include <Eigen/Core>
 
 using namespace std;
+using namespace Eigen;
 
 namespace kermorpp {
 
 const int INT_BYTES = 4; // sizeof(int);
 const int DOUBLE_BYTES = 8; // sizeof(double);
-
-struct Vector {
-	int n;
-	double* values;
-};
-
-struct Matrix {
-	int n, m;
-	double* values;
-
-public:
-	Matrix() :
-			n(0), m(0) {
-	}
-	;
-
-	Matrix(int n, int m) :
-			n(n), m(m) {
-		values = new double[n * m];
-	}
-	;
-
-	friend ostream & operator<<(ostream &os, Matrix &m);
-
-	Matrix mtimes(Matrix other) {
-		Matrix res = Matrix(n, other.m);
-		for (int i = 0; i < res.n; i++) {
-			for (int j = 0; j < res.m; j++) {
-				int pos = i * res.m + j;
-				//			std::cout << "pos " << pos << endl;
-				res.values[pos] = 0;
-				for (int k = 0; k < m; k++) {
-					res.values[pos] += values[i * m + k]
-							* other.values[k * other.m + j];
-				}
-			}
-		}
-		return res;
-	}
-
-	Matrix transpose() {
-		Matrix res = Matrix(m, n);
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-				res.values[j * n + i] = values[i * m + j];
-			}
-		}
-		return res;
-	}
-};
 
 class RBFKernel {
 
@@ -81,13 +33,10 @@ public:
 	RBFKernel(double gamma);
 	virtual ~RBFKernel();
 
-	Matrix evaluate(Matrix x, Matrix y);
+	MatrixXd evaluate(MatrixXd x, MatrixXd y);
 
 protected:
-	virtual double rbf_eval_rsq(double rsq) = 0;
-
-private:
-	void sumsq(Matrix x, double* res);
+	virtual MatrixXd rbf_eval_rsq(MatrixXd rsq) = 0;
 
 public:
 	double _gamma;
@@ -98,16 +47,16 @@ public:
 	KernelExpansion();
 	virtual ~KernelExpansion();
 	void loadFrom(string dir);
-	Matrix evaluate(Matrix points);
+	MatrixXd evaluate(MatrixXd points);
 
 private:
-	Vector loadVector(const char* file);
-	Matrix loadMatrix(const char* file);
+	VectorXd loadVector(const char* file);
+	MatrixXd loadMatrix(const char* file);
 	inline bool little_endian(void);
 //	void combine(char *destination, const char *path1, const char *path2);
 
 public:
-	Matrix coeffs, centers;
+	MatrixXd coeffs, centers;
 	RBFKernel *kernel;
 };
 
@@ -116,7 +65,7 @@ public:
 	Wendland(double gamma, int d, int k);
 	virtual ~Wendland();
 protected:
-	double rbf_eval_rsq(double rsq);
+	MatrixXd rbf_eval_rsq(MatrixXd rsq);
 
 private:
 	int _d, _k;
@@ -127,7 +76,7 @@ public:
 	Gaussian(double gamma);
 	virtual ~Gaussian();
 protected:
-	double rbf_eval_rsq(double rsq);
+	MatrixXd rbf_eval_rsq(MatrixXd rsq);
 };
 
 }

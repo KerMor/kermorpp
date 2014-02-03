@@ -7,6 +7,8 @@
 
 #include "kermorpp.h"
 
+using namespace Eigen;
+
 namespace kermorpp {
 
 Gaussian::Gaussian(double gamma) :
@@ -16,9 +18,9 @@ Gaussian::Gaussian(double gamma) :
 Gaussian::~Gaussian() {
 }
 
-double Gaussian::rbf_eval_rsq(double rsq) {
+MatrixXd Gaussian::rbf_eval_rsq(MatrixXd rsq) {
 	// Default implementation: Gaussian (r^2 is passed)
-	return exp(-rsq);
+	return (-rsq).unaryExpr(internal::scalar_exp_op<double>());
 }
 
 }

@@ -11,6 +11,7 @@
 
 using namespace kermorpp;
 using namespace std;
+using namespace Eigen;
 
 int main(int argc, char **argv) {
 	KernelExpansion *k = new KernelExpansion;
@@ -26,17 +27,18 @@ int main(int argc, char **argv) {
 
 	k->loadFrom(path);
 
-	Matrix x;
-	x.n = 3;
-	x.m = 2;
-	double xv[6] = {1.0, 1.0, .5, 1.5, 2.5, .5};
-	x.values = xv;
+	cout << "loaded coeffs " << k->coeffs.rows() << " x " << k->coeffs.cols()
+			<< " with centers " << k->centers.rows() << " x "
+			<< k->centers.cols() << endl;
+
+	MatrixXd x(3, 2);
+	x << 1.0, 1.0, .5, 1.5, 2.5, .5;
 
 #if DEBUG
 	cout << "done create arg: " << x << endl;
 #endif
 
-	Matrix res = k->evaluate(x);
+	MatrixXd res = k->evaluate(x);
 
 #if DEBUG
 	cout << "done eval: " << res << endl;
@@ -44,6 +46,21 @@ int main(int argc, char **argv) {
 
 	k->kernel = new Gaussian(1);
 	res = k->evaluate(x);
+
+	MatrixXd ma(2, 2);
+	ma << 1, 2, 3, 4;
+	k->coeffs = ma;
+
+	MatrixXd c(2, 2);
+	c << 1, 2, 3, 4;
+	k->centers = ma;
+
+	MatrixXd p(2, 1);
+	p << 1, 2;
+
+#if DEBUG
+	cout << "res:" << k->evaluate(p);
+#endif
 
 	return 0;
 }
