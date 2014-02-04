@@ -1,5 +1,6 @@
 Release
 Debug
+*.cmake
 *.mexw64
 build/
 /Library
@@ -7,3 +8,9 @@ build/
 /Library shared
 gmon.out
 /Library DEBUG
+lib/
+bin/
+CMakeFiles/
+kermorpp_test
+Makefile
+CMakeCache.txt
