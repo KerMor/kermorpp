@@ -10,6 +10,11 @@
 
 namespace kermorpp {
 
+ostream & operator<<(ostream & os, const RBFKernel & k) {
+	os << "Gamma:" << k._gamma;
+	return os;
+}
+
 RBFKernel::RBFKernel(double gamma) :
 		_gamma(gamma) {
 }
@@ -40,7 +45,7 @@ MatrixXd RBFKernel::evaluate(MatrixXd x, MatrixXd y) {
 
 #if DEBUG
 	cout << "x: " << x << ", y:" << y << ", xsq: " << xsq << ", ysq: " << ysq
-			<< ", tmp: " << tmp << endl;
+	<< ", tmp: " << tmp << endl;
 #endif
 
 	return rbf_eval_rsq(tmp);

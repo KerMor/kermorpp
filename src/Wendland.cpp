@@ -26,7 +26,7 @@ MatrixXd Wendland::rbf_eval_rsq(MatrixXd rsq) {
 	int l = floor(_d / 2.0) + _k + 1;
 	MatrixXd p;
 
-	cout << "rsq: " << rsq << ", r: " << r << ", l: " << l << endl;
+	//cout << "rsq: " << rsq << ", r: " << r << ", l: " << l << endl;
 	// +1 is done at end
 	switch (_k) {
 	case 1:
@@ -46,7 +46,7 @@ MatrixXd Wendland::rbf_eval_rsq(MatrixXd rsq) {
 
 	MatrixXd arg = (one-r).cwiseMax(0);
 
-	cout << "p: " << p << ", arg: " << arg << endl;
+	//cout << "p: " << p << ", arg: " << arg << endl;
 
 	return arg.unaryExpr(internal::scalar_pow_op<double>(l + _k)).cwiseProduct(p);
 	//return std::max(0.0, pow((1 - r), l + _k)) * p;

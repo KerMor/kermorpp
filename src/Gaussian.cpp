@@ -6,6 +6,7 @@
  */
 
 #include "kermorpp.h"
+#include <iostream>
 
 using namespace Eigen;
 
@@ -19,7 +20,6 @@ Gaussian::~Gaussian() {
 }
 
 MatrixXd Gaussian::rbf_eval_rsq(MatrixXd rsq) {
-	// Default implementation: Gaussian (r^2 is passed)
 	return (-rsq).unaryExpr(internal::scalar_exp_op<double>());
 }
 

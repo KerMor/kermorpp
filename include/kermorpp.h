@@ -16,7 +16,6 @@
 #define DIR_SEPARATOR "/"
 #endif
 
-#include <sstream>
 #include <Eigen/Core>
 
 using namespace std;
@@ -24,8 +23,8 @@ using namespace Eigen;
 
 namespace kermorpp {
 
-const int INT_BYTES = 4; // sizeof(int);
-const int DOUBLE_BYTES = 8; // sizeof(double);
+const int INT_BYTES = sizeof(int); // 4
+const int DOUBLE_BYTES = sizeof(double); // 8
 
 class RBFKernel {
 
@@ -34,6 +33,7 @@ public:
 	virtual ~RBFKernel();
 
 	MatrixXd evaluate(MatrixXd x, MatrixXd y);
+	friend ostream & operator<<(ostream & os, const RBFKernel & k);
 
 protected:
 	virtual MatrixXd rbf_eval_rsq(MatrixXd rsq) = 0;
@@ -42,23 +42,26 @@ public:
 	double _gamma;
 };
 
+class Util {
+public:
+	static VectorXd loadVector(string file);
+	static MatrixXd loadMatrix(string file);
+private:
+	static inline bool little_endian(void);
+};
+
 class KernelExpansion {
 public:
 	KernelExpansion();
 	virtual ~KernelExpansion();
-	void loadFrom(string dir);
+	static KernelExpansion* loadFrom(string dir);
 	MatrixXd evaluate(MatrixXd points);
-
-private:
-	VectorXd loadVector(const char* file);
-	MatrixXd loadMatrix(const char* file);
-	inline bool little_endian(void);
-//	void combine(char *destination, const char *path1, const char *path2);
+	friend ostream & operator<<(ostream & os, const KernelExpansion & k);
 
 public:
 	MatrixXd coeffs;
 	MatrixXd centers;
-	RBFKernel *kernel;
+	RBFKernel* kernel;
 };
 
 class Wendland: public RBFKernel {

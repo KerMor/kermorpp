@@ -15,3 +15,5 @@ kermorpp_test
 Makefile
 CMakeCache.txt
 Testing/
+/Test eval
+/Test load

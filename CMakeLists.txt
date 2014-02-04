@@ -22,8 +22,12 @@ add_library(kermorpp_static STATIC ${sources})
 add_library(kermorpp SHARED ${sources})
 
 # create the test binary
-add_executable(kermorpp_test test/test)
-target_link_libraries(kermorpp_test kermorpp_static)
+add_executable(test_load test/test_load)
+target_link_libraries(test_load kermorpp_static)
+add_executable(test_eval test/test_eval)
+target_link_libraries(test_eval kermorpp_static)
 
 # add test target: test examples
-ADD_TEST(KERMORPP kermorpp_test "${CMAKE_CURRENT_SOURCE_DIR}/test") #WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+ADD_TEST(KERMORPP_LOADING_GAUSSIAN test_load "${CMAKE_CURRENT_SOURCE_DIR}/test/gaussian")
+ADD_TEST(KERMORPP_LOADING_WENDLAND test_load "${CMAKE_CURRENT_SOURCE_DIR}/test/wendland")
+ADD_TEST(KERMORPP_EVALUATION test_eval)
