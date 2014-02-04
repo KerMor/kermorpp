@@ -8,7 +8,7 @@
 #ifndef KERMORPP_H_
 #define KERMORPP_H_
 
-#define DEBUG true
+//#define DEBUG true
 
 #if defined(WIN32)
 #define DIR_SEPARATOR "\\"
@@ -56,7 +56,8 @@ private:
 //	void combine(char *destination, const char *path1, const char *path2);
 
 public:
-	MatrixXd coeffs, centers;
+	MatrixXd coeffs;
+	MatrixXd centers;
 	RBFKernel *kernel;
 };
 

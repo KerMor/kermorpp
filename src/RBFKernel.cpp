@@ -30,10 +30,6 @@ RBFKernel::~RBFKernel() {
  */
 MatrixXd RBFKernel::evaluate(MatrixXd x, MatrixXd y) {
 
-#ifdef DEBUG
-	char temp[1000];
-#endif
-
 	MatrixXd xsq = MatrixXd::Ones(y.cols(), 1)
 			* x.cwiseProduct(x).colwise().sum();
 	MatrixXd ysq = MatrixXd::Ones(x.cols(), 1)
@@ -42,8 +38,11 @@ MatrixXd RBFKernel::evaluate(MatrixXd x, MatrixXd y) {
 	MatrixXd tmp = (xsq.transpose() + ysq - 2 * x.transpose() * y)
 			/ (_gamma * _gamma);
 
+#if DEBUG
 	cout << "x: " << x << ", y:" << y << ", xsq: " << xsq << ", ysq: " << ysq
 			<< ", tmp: " << tmp << endl;
+#endif
+
 	return rbf_eval_rsq(tmp);
 }
 

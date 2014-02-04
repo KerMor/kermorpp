@@ -20,12 +20,12 @@ using namespace Eigen;
 namespace kermorpp {
 
 KernelExpansion::KernelExpansion() :
-		centers(MatrixXd(0, 0)), coeffs(MatrixXd(0, 0)), kernel(0) {
+		coeffs(MatrixXd(0, 0)), centers(MatrixXd(0, 0)), kernel(0) {
 }
 
 KernelExpansion::~KernelExpansion() {
-	free(&centers);
 	free(&coeffs);
+	free(&centers);
 	kernel->~RBFKernel();
 	free(kernel);
 }
