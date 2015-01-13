@@ -1,33 +1,28 @@
 PROJECT (KerMor++)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-# Default install prefix is "/usr/local"
+OPTION(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib")
+OPTION(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib")
 
-SET(CMAKE_CXX_FLAGS "-Wall -O3")
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
-SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib")
-SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib")
-
 FIND_PACKAGE(Eigen3 REQUIRED)
+include_directories(
+    ${EIGEN3_INCLUDE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
-# enable make test
-ENABLE_TESTING()
-
-# path where to look for header files
-INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/include")
-
-# create libraries
+# create library
 file(GLOB sources "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
-add_library(kermorpp_static STATIC ${sources})
-add_library(kermorpp SHARED ${sources})
-
-# create the test binary
-add_executable(test_load test/test_load)
-target_link_libraries(test_load kermorpp_static)
-add_executable(test_eval test/test_eval)
-target_link_libraries(test_eval kermorpp_static)
+add_library(kermorpp ${sources})
 
 # add test target: test examples
-ADD_TEST(KERMORPP_LOADING_GAUSSIAN test_load "${CMAKE_CURRENT_SOURCE_DIR}/test/gaussian")
-ADD_TEST(KERMORPP_LOADING_WENDLAND test_load "${CMAKE_CURRENT_SOURCE_DIR}/test/wendland")
-ADD_TEST(KERMORPP_EVALUATION test_eval)
+ENABLE_TESTING()
+
+add_executable(test_load test/test_load)
+target_link_libraries(test_load kermorpp)
+add_executable(test_eval test/test_eval)
+target_link_libraries(test_eval kermorpp)
+
+ADD_TEST(KERMORPP_LOADING_GAUSSIAN ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_load "${CMAKE_CURRENT_SOURCE_DIR}/test/gaussian")
+ADD_TEST(KERMORPP_LOADING_WENDLAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_load "${CMAKE_CURRENT_SOURCE_DIR}/test/wendland")
+ADD_TEST(KERMORPP_EVALUATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_eval)
