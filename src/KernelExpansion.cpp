@@ -40,16 +40,16 @@ MatrixXd KernelExpansion::evaluate(MatrixXd points) {
 		exit(-1);
 	}
 
-#if DEBUG
-	cout << "evaluating kexp.. " << endl << "centers:  " << centers << endl
-	<< "points: " << points << endl;
-#endif
+//#if DEBUG
+//	cout << "evaluating kexp.. " << endl << "centers:  " << centers << endl
+//	<< "points: " << points << endl;
+//#endif
 
 	MatrixXd kvec = kernel->evaluate(centers, points);
 
-#if DEBUG
-	cout << "done eval kexp. kernel vector: " << kvec << ", coeffs: " << coeffs << endl;
-#endif
+//#if DEBUG
+//	cout << "done eval kexp. kernel vector: " << kvec << ", coeffs: " << coeffs << endl;
+//#endif
 
 	return coeffs * kvec;
 }
@@ -73,15 +73,15 @@ KernelExpansion* KernelExpansion::loadFrom(string dir) {
 
 	res->centers = Util::loadMatrix(dir + DIR_SEPARATOR + "centers.bin");
 
-#if DEBUG
-	cout << "done loading centers: " << res.centers << endl;
-#endif
+//#if DEBUG
+//	cout << "done loading centers: " << res->centers << endl;
+//#endif
 
 	res->coeffs = Util::loadMatrix(file = dir + DIR_SEPARATOR + "coeffs.bin");
 
-#if DEBUG
-	cout << "done loading coeffs: " << res.coeffs << endl;
-#endif
+//#if DEBUG
+//	cout << "done loading coeffs: " << res->coeffs << endl;
+//#endif
 
 	return res;
 }

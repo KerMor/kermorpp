@@ -43,10 +43,10 @@ MatrixXd RBFKernel::evaluate(MatrixXd x, MatrixXd y) {
 	MatrixXd tmp = (xsq.transpose() + ysq - 2 * x.transpose() * y)
 			/ (_gamma * _gamma);
 
-#if DEBUG
-	cout << "x: " << x << ", y:" << y << ", xsq: " << xsq << ", ysq: " << ysq
-	<< ", tmp: " << tmp << endl;
-#endif
+//#if DEBUG
+//	cout << "x: " << x << ", y:" << y << ", xsq: " << xsq << ", ysq: " << ysq
+//	<< ", tmp: " << tmp << endl;
+//#endif
 
 	return rbf_eval_rsq(tmp);
 }
